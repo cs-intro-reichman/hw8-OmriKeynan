@@ -44,7 +44,7 @@
     /** If this user follows the given name, returns true; otherwise returns false. */
     public boolean follows(String name) {
         name = name.substring(0, 1).toUpperCase() + name.substring(1);
-        if (this.fCount == 0){
+        if (this.fCount == 0){ 
             return false;
         }
         for (int i = 0; i < fCount; i++){
