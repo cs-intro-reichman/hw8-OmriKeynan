@@ -46,7 +46,7 @@ public class Network {
     *  If the given name is already a user in this network, does nothing and returns false;
     *  Otherwise, creates a new user with the given name, adds the user to this network, and returns true. */
     public boolean addUser(String name) {
-        if (userCount == users.length || getUser(name) != null) {
+        if (name == null || userCount == users.length || getUser(name) != null) {
             return false; 
         }else{ 
             this.users[userCount] = new User(name);
@@ -59,14 +59,14 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
-        boolean follow = false;
-        if (getUser(name1) == null || getUser(name2) == null || name1.equals(name2)) {
-            return false; 
-        } else  {
-            follow = getUser(name1).addFollowee(name2);
+        if (name1 == null || name2 == null || getUser(name1) == null 
+                    || getUser(name2) == null || name1.equals(name2)) {
+            return false;
+        } else {
+            return getUser(name1).addFollowee(name2);
         }
-        return follow;
     }
+    
     
     /** For the user with the given name, recommends another user to follow. The recommended user is
      *  the user that has the maximal mutual number of followees as the user with the given name. */
@@ -124,7 +124,10 @@ public class Network {
         }
         String ans = "Network:" + "\n";
         for (int i = 0; i < this.userCount; i++) {
-            ans += users[i].toString() + "\n";
+            ans += users[i].toString();
+            if (i < this.userCount - 1) { 
+                ans += "\n";
+            }
         }
         return ans;
     }
